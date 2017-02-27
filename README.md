@@ -20,14 +20,28 @@ qqzone
 [![cookie.png](https://github.com/VegetableCat/qqzone/blob/master/img/cookie.png?raw=true)]()
 
 将请求头信息中的cookie，复制到同目录下的cookie.txt中，一行就好，不要换行。  
+
 3.获取g_tk，g_tk是qq空间认证中的一个token，按下图方式即可获取。  
 [![g_tk.png](https://github.com/VegetableCat/qqzone/blob/master/img/g_tk.png?raw=true)]()
 
 note:
+
 推荐使用手机端的cookie和g_tk。
 
+脚本运行说明
+-g 为必要参数
+
 ```bash
-  Usage: python secret.py -g xxxxxxxxxxxx -e 2017-02-25 -s 2017-02-20
+➜  qqzone git:(master) ✗ ./secret.py       
+usage: secret.py [-h] [-s START_TIME] [-e END_TIME] [-g G_TK] [-o OUTFILE]
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -s START_TIME  the start date you want to spider,(e.g. 2017-01-01)
+  -e END_TIME    the end date you want to spider,default is now
+  -g G_TK        auth to qq zone
+  -o OUTFILE     output to a file,default is data.txt
+
 ```
 
 ### Example
