@@ -20,6 +20,10 @@ def loadCookie():
     filename='cookie.txt'
     cookiefile = os.path.join(cwd,filename)
 
+    if not os.path.exists(cookiefile):
+        print "[!] cookie.txt not found!"
+        print "[*] please follow the readme.md to find cookie , and paste to cookie.txt"
+        sys.exit(-1)
 
     with open(cookiefile,'r') as f:
         cookies={}
@@ -28,15 +32,35 @@ def loadCookie():
             cookies[name]=value
 
     print "[*] cookie load success!"
+
     return cookies
 
-def secretSpider(t,g,outfile,cookies):
+def LeftShiftInt(number, step):  # 由于左移可能自动转为long型，通过这个转回来
+    if isinstance((number << step), long):
+        return int((number << step) - 0x200000000L)
+    else:
+        return int(number << step)
+
+def LongToInt(value):  # 由于int+int超出范围后自动转为long型，通过这个转回来
+    if isinstance(value, int):
+        return int(value)
+    else:
+        return int(value & sys.maxint)
+
+def getOldGTK(skey):
+    a = 5381
+    for i in range(0, len(skey)):
+        a = a + LeftShiftInt(a, 5) + ord(skey[i])
+        a = LongToInt(a)
+    return a & 0x7fffffff
+
+def secretSpider(t,outfile,cookies):
 
 
     s = requests.Session()
     p = {}
-    p['g_tk'] = g
-    #1423284339
+    p['g_tk'] = getOldGTK(cookies['p_skey'])
+
 
 
 
@@ -109,42 +133,39 @@ def stamp2time(stamp):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-s',help='the start time you want to spider,(e.g. 2017-01-01)' ,dest='start_time',default=None)
-    parser.add_argument('-e',help='the end time you want to spider,default is now',dest='end_time',default=None)
-    parser.add_argument('-g',help='auth to qq zone',dest='g_tk',type=str,default=None)
-    parser.add_argument('-o',help='output to a file,default is data.txt',dest='outfile',default=None)
+    parser.add_argument('-s',help='the start date you want to spider,(e.g. 2017-01-01)' ,dest='start_date',default=None)
+    parser.add_argument('-e',help='the end time you want to spider,default is now',dest='end_date',default=None)
+    parser.add_argument('-o',help='output to a file',dest='outfile',default=None)
 
     args = parser.parse_args()
 
-    start_time = args.start_time
-    end_time   = args.end_time
-    g_tk = args.g_tk
+    start_date = args.start_date
+    end_date  = args.end_date
+
     outfile = args.outfile
 
-    if g_tk == None:
-        parser.print_help()
-        sys.exit(-1)
-    else:
-        g = g_tk
 
     #起始时间
-    if start_time == None:
-        start_time = '2017-01-01'
-        t1=int(time.mktime(time.strptime(start_time,'%Y-%m-%d')))
+    if start_date == None:
+        start_date = '2017-01-01'
+        t1=int(time.mktime(time.strptime(start_date,'%Y-%m-%d')))
 
     else:
-        t1=int(time.mktime(time.strptime(start_time,'%Y-%m-%d')))
+        t1=int(time.mktime(time.strptime(start_date,'%Y-%m-%d')))
 
     #结束时间
-    if end_time == None:
+    if end_date == None:
         t2=int(time.time())
+        timeArray = time.localtime(t2)
+        end_date = time.strftime("%Y-%m-%d", timeArray)
     else:
-        end=end_time
-        t2=time.mktime(time.strptime(end,'%Y-%m-%d'))
+        t2=time.mktime(time.strptime(end_date,'%Y-%m-%d'))
 
     if outfile == None:
-        f = 'data.txt'
-        print "[*] results save to data.txt!"
+        s = start_date.replace('-','')
+        e = end_date.replace('-','')
+        f = '_'.join([s,e])+'.txt'
+        print "[*] results save to %s!" % f
     else:
         f = outfile
         print "[*] results save to %s!" % f
@@ -158,9 +179,9 @@ def main():
     t2=t2+1
     while (t < t2) and (t > t1):
         try:
-            t = secretSpider(t,g,f,cookies)
+            t = secretSpider(t,f,cookies)
         except IndexError,e:
-            print "all is ok"
+            print "[*] all is ok"
             sys.exit(1)
         t = t-1
 

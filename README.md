@@ -9,7 +9,10 @@ qqzone
 
 1. 用requests包替换了urllib  
 2. 去掉了一些不必要的参数  
-3. 添加了说明，更易于使用  
+3. 添加了说明，更易于使用
+4. 自动计算g_tk
+5. 默认爬取从当前时间到2017年2月
+6. 如果不指定输出文件，默认保存的文件名为开始日期_结束日期，如20170201_20170228.txt
 
 
 
@@ -21,12 +24,11 @@ qqzone
 
 将请求头信息中的cookie，复制到同目录下的cookie.txt中，一行就好，不要换行。  
 
-3.获取g_tk，g_tk是qq空间认证中的一个token，按下图方式即可获取。  
-[![g_tk.png](https://github.com/VegetableCat/qqzone/blob/master/img/g_tk.png?raw=true)]()
+
 
 note:
 
-推荐使用手机端的cookie和g_tk。
+推荐使用手机端的cookie和g_tk，因为电脑上每次登录空间，g_tk都会变化，而手机端的更加持久。
 
 脚本运行说明
 -g 为必要参数
