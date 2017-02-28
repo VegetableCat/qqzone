@@ -18,7 +18,7 @@ qqzone
 
 ### Usage
 
-1.电脑上，使用浏览器（chrome/firefox），点下F12打开开发者工具，访问http://h5.qzone.qq.com  
+1.电脑上，使用浏览器（chrome/firefox），点下F12打开开发者工具，先登录[qq空间](http://i.qq.com),然后访问[小秘密](http://h5.qzone.qq.com/secret/list)
 2.获取cookie，按下图方式即可获取。（网络 - XHR）  
 [![cookie.png](https://github.com/VegetableCat/qqzone/blob/master/img/cookie.png?raw=true)]()
 
