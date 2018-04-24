@@ -18,13 +18,11 @@ qqzone
 
 ### Usage
 
-1.电脑上，使用浏览器（chrome/firefox），先登录[qq空间](http://i.qq.com),然后访问[小秘密](http://h5.qzone.qq.com/secret/list)  
-2.获取cookie:在浏览器的地址栏粘贴引号内内容"javascript:document.write(document.cookie);",然后回车，将显示的内容复制到同目录下的cookie.txt中，不要换行。  
-
-Chrome浏览器同理。  
+1. 电脑上，使用浏览器（chrome/firefox），先登录[qq空间](http://i.qq.com),然后访问[小秘密](http://h5.qzone.qq.com/secret/list)  
+2. 获取cookie:浏览器中按F12，打开开发者工具，点击`console`标签，在最下面的命令提示符右箭头处，粘贴`javascript:document.write(document.cookie);`,然后回车，将显示的内容复制到同目录下的cookie.txt中，不要换行。  
 
 note:
-推荐使用手机端的cookie，因为电脑上每次登录空间，cookie都会变化，而手机端的更加持久。
+推荐使用手机端的cookie，因为电脑上每次登录空间，cookie都会变化，而手机端的更加持久。  
 如果不知道怎么提取手机端的cookie，那还是用电脑端吧。 = =  
 
 
