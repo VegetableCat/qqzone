@@ -11,10 +11,6 @@ import argparse
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-start_text="""
-
-"""
-
 def loadCookie():
     cwd = os.getcwd()
     filename='cookie.txt'
@@ -56,16 +52,11 @@ def getOldGTK(skey):
 
 def secretSpider(t,outfile,cookies):
 
-
     s = requests.Session()
     p = {}
     p['g_tk'] = getOldGTK(cookies['p_skey'])
 
-
-
-
     secretUrl = 'https://h5.qzone.qq.com/webapp/json/secretList/getSecretActFeeds'
-
 
     payload = {
         'refresh_type':'2',
@@ -75,13 +66,9 @@ def secretSpider(t,outfile,cookies):
         'format':'json'
     }
 
-
     headers = {}
     headers['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13E238 Safari/601.1'
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-
-
 
     if True:
 
@@ -122,14 +109,10 @@ def secretSpider(t,outfile,cookies):
             print "[!] check your cookies!"
             sys.exit(0)
 
-
 def stamp2time(stamp):
     timeArray = time.localtime(stamp)
     datatime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
     return datatime
-
-
-
 
 def main():
     parser = argparse.ArgumentParser()
@@ -143,7 +126,6 @@ def main():
     end_date  = args.end_date
 
     outfile = args.outfile
-
 
     #起始时间
     if start_date == None:
@@ -169,8 +151,6 @@ def main():
     else:
         f = outfile
         print "[*] results save to %s!" % f
-
-
 
     cookies = loadCookie()
 
